@@ -20,8 +20,11 @@
 
 #include <stdlib.h>
 #include <errno.h>
+#include <unistd.h>
 #include <lua.h>
 #include <lauxlib.h>
+
+extern char **environ;
 
 static int cfun_setenv(lua_State *L)
 {
@@ -55,8 +58,23 @@ static int cfun_setenv(lua_State *L)
     return 2;
 }
 
+static int cfun_environ(lua_State *L)
+{
+    int i = 0;
+    char **env;
+    lua_newtable(L);
+    for (env = environ; *env; ++env) {
+        ++i;
+        lua_pushstring(L, *env);
+        lua_rawseti(L, -2, i);
+    }
+    return 1;
+
+}
+
 static const struct luaL_Reg env_list[] = {
     { "setenv", cfun_setenv },
+    { "environ", cfun_environ },
     { NULL, NULL }
 };
 

@@ -15,6 +15,11 @@ color = Env.COLOR
 
 -- unsetting COLOR
 Env.COLOR = nil
+
+-- list all environment variables
+for k,v in pairs(Env()) do
+    print(k,v)
+end
 ```
 
 # License

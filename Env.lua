@@ -18,17 +18,27 @@
 -- Project home: https://github.com/2ion/lua-env
 
 -- Env.lua
-local setenv = require("env").setenv
+local env = require("env")
 local getenv = os.getenv
-local Env = {}
-setmetatable(Env, {
+local Env = setmetatable({}, {
     __index = function (t, key)
         local v = getenv(tostring(key))
         if not v or #v == 0 then return nil end
         return v
     end,
     __newindex = function (t, key, value)
-        setenv(key, value)
+        env.setenv(key, value)
+    end,
+    __call = function (f, filter)
+        local t = {}
+        local function map(v)
+            local i,j = string.find(v, "=")
+            t[string.sub(v, 1, i-1)] = string.sub(v, j+1)
+        end
+        for _,v in ipairs(env.environ()) do
+            map(v)
+        end
+        return t
     end
 })
 return Env
