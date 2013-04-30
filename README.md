@@ -2,7 +2,18 @@
 
 The lua-env library adds functionality to set environment variables to
 Lua. It provides a table for getting, setting and clearing environment
-variables. The usage is as follows:
+variables and tries to be small and concise.
+
+Key-value pairs as representations of the env variables are
+obtained by splitting at the first '=' character. I wrote the library
+for Linux, but it should work on all Unixes; I don't know about Windows
+platforms.
+
+The library consists of a C part (implements setting and listing) and a
+Lua part (implements the Env table using the C functionality and
+os.getenv from Lua).
+
+The interface is as follows:
 
 ```lua
 local Env = require("Env")
