@@ -31,6 +31,16 @@ Env.COLOR = nil
 for k,v in pairs(Env()) do
     print(k,v)
 end
+
+-- filter the list of environment variables.
+-- Pass a filter function f(k, v), the arguments of which will be
+-- the environment kv-pairs. Only if the functions returns a true value
+-- the kv-pair will be entered into the table returned by Env(f).
+-- Here: report only variables the value of which contains >1 digit.
+for k,v in pairs(Env(function (k,v) return v:match("[%d]+") end)) do
+    print(k,v)
+end
+
 ```
 
 # License

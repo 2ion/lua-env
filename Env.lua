@@ -29,11 +29,27 @@ local Env = setmetatable({}, {
     __newindex = function (t, key, value)
         env.setenv(key, value)
     end,
-    __call = function (f, filter)
+    __call = function (t, f)
         local t = {}
-        local function map(v)
+        local function map_nofilter(v)
             local i,j = string.find(v, "=")
             t[string.sub(v, 1, i-1)] = string.sub(v, j+1)
+        end
+        local function map_filter(v)
+            local i,j = string.find(v, "=")
+            local k = string.sub(v, 1, i-1)
+            local v = string.sub(v, j+1)
+            if f(k, v) then t[k] = v end
+        end
+        local map
+        if f then
+            if type(f) ~= "function" then
+                error("Env.__call(f): f is not a function!")
+            else
+                map = map_filter
+            end
+        else
+            map = map_nofilter
         end
         for _,v in ipairs(env.environ()) do
             map(v)
