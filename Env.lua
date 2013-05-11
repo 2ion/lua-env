@@ -26,8 +26,8 @@ local Env = setmetatable({}, {
         if not v or #v == 0 then return nil end
         return v
     end,
-    __newindex = function (t, key, value)
-        env.setenv(key, value)
+    __newindex = function (t, k, v)
+        env.setenv(k, v)
     end,
     __call = function (t, f)
         local t = {}
