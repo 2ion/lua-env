@@ -3,8 +3,8 @@ CFLAGS = -shared -fPIC -Wall -O2 $(shell pkg-config --cflags $(LUA))
 LDFLAGS = $(shell pkg-config --libs $(LUA))
 TARGET = env
 
-$(TARGET).so:
-	gcc $(CFLAGS) $(LDFLAGS) $(TARGET).c -o $(TARGET).so 
+$(TARGET).so: $(TARGET).c
+	gcc $(CFLAGS) -o $@ $< $(LDFLAGS) 
 
 clean:
 	-rm $(TARGET).so
