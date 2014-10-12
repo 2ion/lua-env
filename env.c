@@ -42,7 +42,7 @@ static int cfun_setenv(lua_State *L)
             case 0:
                 lua_pushboolean(L, 1);
                 return 1;
-            case 1:
+            case -1:
                 lua_pushnil(L);
                 lua_pushinteger(L, errno);
                 return 2;
