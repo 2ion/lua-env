@@ -1,6 +1,6 @@
 #!/usr/bin/env lua5.2
 -- env - Lua library for getting, setting and clearing env variables
--- Copyright (C) 2013 Jens Oliver John <asterisk@2ion.de>
+-- Copyright (C) 2013-2014 Jens Oliver John <dev@2ion.de>
 -- 
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
